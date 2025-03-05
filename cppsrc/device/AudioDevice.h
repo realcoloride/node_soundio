@@ -13,6 +13,8 @@ public:
 	ma_uint32 channels;
 	bool isDefault;
 
+	ma_device* internalDevice;
+
 
 	void subscribe() {
 		

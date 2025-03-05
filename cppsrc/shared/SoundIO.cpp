@@ -31,6 +31,8 @@ ma_result SoundIO::refreshDevices() {
     AudioMicrophoneDevice* defaultCaptureDevice = nullptr;
     AudioSpeakerDevice* defaultPlaybackDevice = nullptr;
 
+    idToDevices.clear();
+
     loopDevices(context, playbackDevices, playbackCount, ma_device_type_playback,
         [&result, &defaultPlaybackDevice]
         (ma_device_info deviceInfo, std::string normalizedDeviceId, ma_format format, ma_uint32 sampleRate, ma_uint32 channels) {

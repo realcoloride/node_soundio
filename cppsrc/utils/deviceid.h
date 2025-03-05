@@ -1,5 +1,6 @@
 #pragma once
 #include <include.h>
+#include <utils/wcharconvert.h>
 
 constexpr size_t MAX_DEVICE_ID_BUFFER = 512;
 
@@ -12,16 +13,7 @@ static bool normalizeDeviceId(ma_backend backend, const ma_device_id& deviceId, 
     // extract device ID based on backend type
     switch (backend) {
         case ma_backend_wasapi: {
-            // should be reasonable
-            char buffer[MAX_DEVICE_ID_BUFFER];
-            size_t converted = 0;
-
-            // convert (magician memory shit)
-            if (wcstombs_s(&converted, buffer, sizeof(buffer), deviceId.wasapi, sizeof(buffer) - 1) != 0)
-                return false;
-
-            buffer[converted] = '\0';
-            deviceIdStr = std::string(buffer); // convert wchar_t to std::string
+            deviceIdStr = convertWideCharToString(deviceId.wasapi, MAX_DEVICE_ID_BUFFER);
             break;
         }
 

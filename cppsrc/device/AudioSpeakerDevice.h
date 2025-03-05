@@ -16,11 +16,15 @@ public:
 		engine = std::make_unique<ma_engine>();
 		result = ma_engine_init(&engineConfig, engine.get());
 
+		if (result == MA_SUCCESS)
+			this->internalDevice = engine.get()->pDevice;
+		
 		isAwake = result == MA_SUCCESS;
 		return result;
 	}
 	void sleep() override {
 		if (engine) ma_engine_uninit(engine.get());
+		if (internalDevice) internalDevice = nullptr;
 		AudioDevice::sleep();
 	}
 

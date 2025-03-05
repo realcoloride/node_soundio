@@ -67,6 +67,8 @@ public:
     static ma_result initialize();
     static ma_result shutdown() {
         if (!initialized) return MA_SUCCESS;
+
+
         return MA_SUCCESS;
     }
 
